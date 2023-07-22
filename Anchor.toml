@@ -1,0 +1,20 @@
+[features]
+seeds = true
+skip-lint = false
+[programs.localnet]
+bagbox = "DJyyu59JEsWPqZ5Q1v2DUgVAtHse3icGBGdbPMfftfAY"
+bagbox-session = "5HjwvteZtoz5Ap887n9sDEykzHQg5pJA4iFV2ofJZ1yv"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "Localnet"
+wallet = "/Users/abishek/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json"
+
+[[test.genesis]]
+address = "3ao63wcSRNa76bncC2M3KupNtXBFiDyNbgK52VG7dLaE"
+program = "./program-deps/gpl_session.so"
