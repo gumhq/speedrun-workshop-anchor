@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { Bagbox } from "../target/types/bagbox";
+import { Bagbox } from "../../target/types/bagbox";
 import { expect } from "chai";
 
 describe("Bagbox", () => {
@@ -36,12 +36,12 @@ describe("Bagbox", () => {
     expect(playerAccount.authority).to.eql(provider.wallet.publicKey);
   });
 
-  it("should attack causing damage to the bag", async () => {
+  it("should punch causing damage to the bag", async () => {
     const bagAccountPre = await program.account.bag.fetch(bag);
     expect(bagAccountPre.damage).to.eql(0);
 
     await program.methods
-      .attack()
+      .punch()
       .accounts({
         player: player,
         bag: bag,

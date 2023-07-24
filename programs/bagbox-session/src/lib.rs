@@ -3,6 +3,11 @@ use gpl_session::{session_auth_or, Session, SessionError, SessionToken};
 
 declare_id!("5HjwvteZtoz5Ap887n9sDEykzHQg5pJA4iFV2ofJZ1yv");
 
+/// Smart Contract for a simple game bagbox.
+///
+/// Each player has a bag, they can punch.
+/// Each punch increases the damage of the bag.
+
 #[program]
 pub mod bagbox_session {
     use super::*;
@@ -21,7 +26,7 @@ pub mod bagbox_session {
         ctx.accounts.player.authority.key() == ctx.accounts.authority.key(),
         BagboxError::InvalidSessionToken
     )]
-    pub fn attack(ctx: Context<Attack>) -> Result<()> {
+    pub fn punch(ctx: Context<Punch>) -> Result<()> {
         let bag = &mut ctx.accounts.bag;
         bag.damage = bag.damage.checked_add(1).unwrap();
 
@@ -58,7 +63,7 @@ pub struct Initialize<'info> {
 }
 
 #[derive(Accounts, Session)]
-pub struct Attack<'info> {
+pub struct Punch<'info> {
     #[account(
         mut,
         seeds = [b"bag".as_ref(), authority.key().as_ref()],

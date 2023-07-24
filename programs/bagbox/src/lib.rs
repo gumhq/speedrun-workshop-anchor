@@ -2,6 +2,11 @@ use anchor_lang::prelude::*;
 
 declare_id!("DJyyu59JEsWPqZ5Q1v2DUgVAtHse3icGBGdbPMfftfAY");
 
+/// Smart Contract for a simple game bagbox.
+///
+/// Each player has a bag, they can punch.
+/// Each punch increases the damage of the bag.
+
 #[program]
 pub mod bagbox {
     use super::*;
@@ -16,7 +21,7 @@ pub mod bagbox {
         Ok(())
     }
 
-    pub fn attack(ctx: Context<Attack>) -> Result<()> {
+    pub fn punch(ctx: Context<Punch>) -> Result<()> {
         let bag = &mut ctx.accounts.bag;
         bag.damage = bag.damage.checked_add(1).unwrap();
 
@@ -53,7 +58,7 @@ pub struct Initialize<'info> {
 }
 
 #[derive(Accounts)]
-pub struct Attack<'info> {
+pub struct Punch<'info> {
     #[account(
         mut,
         seeds = [b"bag".as_ref(), authority.key().as_ref()],

@@ -38,12 +38,12 @@ describe("Bagbox with Session", () => {
     expect(playerAccount.authority).to.eql(provider.wallet.publicKey);
   });
 
-  it("should attack causing damage to the bag", async () => {
+  it("should punch causing damage to the bag", async () => {
     const bagAccountPre = await program.account.bag.fetch(bag);
     expect(bagAccountPre.damage).to.eql(0);
 
     await program.methods
-      .attack()
+      .punch()
       .accounts({
         player: player,
         bag: bag,
@@ -81,10 +81,10 @@ describe("Bagbox with Session", () => {
       sessionToken = sessionTxKeys.pubkeys.sessionToken;
     });
 
-    it("should attack causing damage to the bag", async () => {
+    it("should punch causing damage to the bag", async () => {
       const bagAccountPre = await program.account.bag.fetch(bag);
       await program.methods
-        .attack()
+        .punch()
         .accounts({
           // @ts-ignore
           authority: provider.wallet.publicKey,
